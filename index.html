@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!-- saved from url=(0156)file:///C:/Users/USER/Documents/youtube/%E5%8B%95%E7%94%BB/IT%E8%A7%A3%E8%AA%AC%E3%83%81%E3%83%A3%E3%83%B3%E3%83%8D%E3%83%AB/48_%E8%BF%B7%E8%B7%AF/maze.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+    迷路
+    <div id="maze" style="width: 270px;">
+    </div>
+    <script>
+    const maze = [
+        [1,1,1,1,1,1,1,1,1],
+        [1,2,1,0,0,0,1,0,1],
+        [1,0,1,0,1,0,1,0,1],
+        [1,0,0,0,1,0,1,0,1],
+        [1,1,1,0,1,1,1,0,1],
+        [1,0,0,0,0,0,0,0,1],
+        [1,0,1,1,1,0,1,0,1],
+        [1,0,0,0,1,0,1,0,1],
+        [1,1,1,1,1,1,1,1,1]
+    ]
+    const mazeDiv = document.getElementById("maze")
+    for(let row = 0; row<maze.length; row++) {
+        for(let col = 0; col<maze[row].length; col++) {
+            console.log(maze[row][col])
+            var div = document.createElement("div")
+            div.setAttribute("r", row)
+            div.setAttribute("c", col)
+
+            var tmp;
+            switch (maze[row][col]){
+            case 0:
+                tmp = "pass"
+                break;
+            case 1:
+                tmp = "wall"
+                break;
+            case 2:
+                tmp = "cur"
+                break;
+            default:
+            }
+
+            div.classList.add(tmp)
+            mazeDiv.appendChild(div)
+        }
+    }
+    var row= 1, col = 1;
+    document.addEventListener('keydown', function (e) {
+        let output = ``;
+        console.log(row, col);
+        if (e.code == 'KeyW' || e.code == 'ArrowUp') {
+            output = `Up`;
+            if(maze[row-1][col] == 0) {
+                document.querySelector(`div[r="${row}"][c="${col}"]`).className = "pass"
+                row = row - 1
+                document.querySelector(`div[r="${row}"][c="${col}"]`).className = "cur"
+            }
+        } else if (e.code == 'KeyS' || e.code == 'ArrowDown') {
+            output = `Down`;
+            if(maze[row+1][col] == 0) {
+                document.querySelector(`div[r="${row}"][c="${col}"]`).className = "pass"
+                row = row + 1
+                document.querySelector(`div[r="${row}"][c="${col}"]`).className = "cur"
+            }
+        } else if (e.code == 'KeyA' || e.code == 'ArrowLeft') {
+            output = `Left`;
+            if(maze[row][col-1] == 0) {
+                document.querySelector(`div[r="${row}"][c="${col}"]`).className = "pass"
+                col = col - 1
+                document.querySelector(`div[r="${row}"][c="${col}"]`).className = "cur"
+            }
+        } else if (e.code == 'KeyD' || e.code == 'ArrowRight') {
+            output = `Right`;
+            if(maze[row][col+1] == 0) {
+                document.querySelector(`div[r="${row}"][c="${col}"]`).className = "pass"
+                col = col + 1
+                document.querySelector(`div[r="${row}"][c="${col}"]`).className = "cur"
+            }
+        }
+        if(row == 7 && col == 7){
+            alert("clear!!")
+        }
+
+        console.log(output);
+    })
+
+    </script>
+    <style>
+        .wall {
+            background-color: black;
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            margin: 0;
+            float: left;
+        }
+        .pass {
+            background-color: white;
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            margin: 0;
+            float: left;
+        }        
+        .cur {
+            background-color: yellow;
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            margin: 0;
+            float: left;
+        }        
+    </style>
+</body>
+</html>
+
